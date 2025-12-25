@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fairmont Baku - Tez-tez Verilən Suallar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            max-width: 300px;
+            margin: 0 auto 30px;
+            filter: brightness(0) invert(1);
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .language-toggle {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .language-toggle button {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 10px 30px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .language-toggle button.active {
+            background: white;
+            color: #1a1a1a;
+        }
+
+        .language-toggle button:hover {
+            background: white;
+            color: #1a1a1a;
+        }
+
+        .faq-container {
+            background: white;
+            border-radius: 0;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .search-box {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #d4af37;
+            border-radius: 0;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: 'Georgia', serif;
+        }
+
+        .search-box input:focus {
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #d4af37;
+            font-size: 1.2em;
+        }
+
+        .faq-item {
+            margin-bottom: 2px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: #f9f9f9;
+        }
+
+        .faq-question h3 {
+            color: #1a1a1a;
+            font-size: 1.05em;
+            font-weight: 400;
+            flex: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .faq-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 1.8em;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 20px;
+            font-weight: 300;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background: #fafafa;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 600px;
+            padding: 25px 30px;
+        }
+
+        .faq-answer p {
+            color: #444;
+            line-height: 1.9;
+            font-size: 0.95em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            display: none;
+            font-style: italic;
+        }
+
+        .contact-section {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item h3 {
+            color: #d4af37;
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .contact-item p {
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #d4af37;
+        }
+
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .faq-container {
+                padding: 30px 20px;
+            }
+            
+            .faq-question h3 {
+                font-size: 0.95em;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .logo {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 545 300'%3E%3Ctext x='50%25' y='35%25' text-anchor='middle' font-family='Georgia, serif' font-size='80' font-style='italic' fill='white'%3EFairmont%3C/text%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' font-family='Arial, sans-serif' font-size='32' letter-spacing='8' fill='white'%3EBAKU%3C/text%3E%3Ctext x='50%25' y='78%25' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' letter-spacing='6' fill='white'%3EFLAME TOWERS%3C/text%3E%3C/svg%3E" alt="Fairmont Baku Flame Towers">
+            </div>
+            <h1>Tez-tez Verilən Suallar / Frequently Asked Questions</h1>
+        </div>
+
+        <div class="language-toggle">
+            <button class="lang-btn active" data-lang="az">Azərbaycanca</button>
+            <button class="lang-btn" data-lang="en">English</button>
+        </div>
+
+        <div class="faq-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input-az" placeholder="Sualı axtar...">
+                <input type="text" id="searchInputEn" class="search-input-en" style="display:none;" placeholder="Search questions...">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <!-- Azərbaycanca Content -->
+            <div id="faqListAz" class="lang-content active">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Hədiyyə kartı seçimləriniz nələrdir?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sevdiklərinizə unudulmaz bir istirahət bəxş etmək üçün xüsusi hədiyyə kartlarımız mövcuddur. Arzu etsəniz, müəyyən bir spa prosedurunu seçə bilər və ya istədiyiniz məbləği karta yükləyərək hədiyyə edə bilərsiniz. Ödənişi sizə göndərəcəyimiz təhlükəsiz link vasitəsilə məkana gəlmədən asanlıqla edə bilərsiniz. Hədiyyə kartını elektron vauçer (e-voucher) olaraq e-poçt vasitəsilə və ya Bakı daxilində kuryer xidməti ilə çatdıra bilərik. Hədiyyə kartının istifadə edildiyi gün qonağımız spa mərkəzinin bütün imkanlarından ödənişsiz yararlanmaq üstünlüyünə sahib olur.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Günlük spa giriş qiyməti və xidmətlərə nələr daxildir?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Mükəmməl bir spa təcrübəsi üçün günlük giriş qiymətimiz həftə içi 65 AZN, həftəsonu və bayram günlərində isə 75 AZN təşkil edir. Bu qiymətə qapalı hovuz, jakuzi, buxar otağı, sauna, istirahət zonası, fitnes mərkəzindən istifadə və şəxsi dolab xidməti daxildir.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Xanımlar və bəylər üçün ayrı saatlar varmı?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Spa mərkəzimizdə xanımlar və ya bəylər üçün xüsusi saat məhdudiyyəti yoxdur; fitnes və qapalı hovuz sahələri bütün qonaqlarımızın ortaq istifadəsi üçün nəzərdə tutulmuşdur. Lakin, qonaqlarımızın rahatlığını təmin etmək məqsədilə 6-cı mərtəbədə yerləşən spa zonamızda xanımlar və bəylər üçün ayrı-ayrı sauna və buxar otaqları fəaliyyət göstərir.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Üzvlük paketləri haqqında məlumat ala bilərəmmi?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sağlam həyat tərzini seçənlər üçün Quartz, Silver Lite, Silver, Gold və Diamond olmaqla fərqli üzvlük kateqoriyalarımız mövcuddur. Detallı məlumat üçün linktr.ee/Fairmontspa ünvanına daxil ola bilər və ya suallarınız üçün bizimlə WhatsApp vasitəsilə əlaqə saxlaya bilərsiniz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>İş saatlarınız barədə məlumat verərdiniz?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Fitnes mərkəzimiz otel qonaqları, Gold və Diamond üzvlərimiz üçün 24 saat açıqdır. Digər bütün spa və istirahət zonalarımız isə hər gün saat 06:30 – 22:00 arası xidmətinizdədir.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Avtomobil dayanacağı varmı?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Bəli, spa prosedurlarından yararlanan qonaqlarımız və üzvlərimiz üçün ödənişsiz dayanacaq xidmətimiz mövcuddur.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Spa menyusunu necə əldə edə bilərəm?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ruhunuzu və bədəninizi yeniləyəcək bütün prosedurlar haqqında linktr.ee/Fairmontspa ünvanından ətraflı məlumat ala bilərsiniz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Rezervasiya necə edə bilərəm?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Rezervasiya üçün bizimlə +994 51 206 37 37 və ya +994 12 565 48 46 nömrələri vasitəsilə əlaqə saxlaya bilər və ya linktr.ee/Fairmontspa saytından onlayn rezervasiya bölməsindən istifadə edə bilərsiniz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Açıq hovuz qiymətlərini haradan öyrənə bilərəm?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Açıq hovuzdan istifadə qaydaları və qiymətləri ilə linktr.ee/Fairmontspa ünvanından tanış ola bilərsiniz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Otaq qiymətləri, restoran və hovuz bar menyusu haqqında məlumat verə bilərsinizmi?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Otelimizdə konaklama, restoran xidmətləri və Pool Bar menyusu ilə bağlı suallarınız üçün lütfən Fairmont Hotel-in əsas nömrəsi olan +994 12 565 48 48 ilə əlaqə saxlayın.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Spa-ya gələrkən yanımda nə gətirməliyəm?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Hovuz, sauna və jakuzi istifadəsi üçün çimərlik paltarı və ya dəsmal gətirə bilərsiniz. Ancaq bütün ehtiyaclarınız üçün təmiz dəsmal, xalat və başmaq təqdim edirik. İstəsəniz şəxsi qulluq məhsullarınızı gətirə bilərsiniz.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- English Content -->
+            <div id="faqListEn" class="lang-content">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What are your gift card options?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer special gift cards to give your loved ones an unforgettable relaxation experience. You can either choose a specific spa treatment or load any amount you wish onto the card. Payment can be easily made through a secure link we will send you, without visiting the location. The gift card can be delivered as an electronic voucher (e-voucher) via email or through courier service within Baku. On the day the gift card is used, our guest has the privilege of enjoying all spa center facilities free of charge.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is the daily spa entry price and what services are included?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For a perfect spa experience, our daily entry price is 65 AZN on weekdays and 75 AZN on weekends and holidays. This price includes access to the indoor pool, jacuzzi, steam room, sauna, relaxation area, fitness center, and personal locker service.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Are there separate hours for ladies and gentlemen?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>There are no specific time restrictions for ladies or gentlemen at our spa center; the fitness and indoor pool areas are intended for shared use by all our guests. However, to ensure our guests' comfort, separate saunas and steam rooms for ladies and gentlemen are available in the spa zone located on the 6th floor.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I get information about membership packages?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For those who choose a healthy lifestyle, we have different membership categories including Quartz, Silver Lite, Silver, Gold, and Diamond. For detailed information, you can visit linktr.ee/Fairmontspa or contact us via WhatsApp for your questions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Could you provide information about your operating hours?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our fitness center is open 24 hours for hotel guests, Gold and Diamond members. All other spa and relaxation zones are at your service daily from 06:30 to 22:00.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is there parking available?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, complimentary parking service is available for our guests and members using spa treatments.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How can I access the spa menu?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can find detailed information about all treatments that will rejuvenate your mind and body at linktr.ee/Fairmontspa.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How can I make a reservation?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For reservations, you can contact us at +994 51 206 37 37 or +994 12 565 48 46, or use the online reservation section at linktr.ee/Fairmontspa.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Where can I learn about outdoor pool prices?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can learn about outdoor pool usage rules and prices at linktr.ee/Fairmontspa.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can you provide information about room rates, restaurant, and pool bar menu?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For questions regarding accommodation, restaurant services, and Pool Bar menu at our hotel, please contact Fairmont Hotel's main number at +994 12 565 48 48.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What should I bring with me to the spa?</h3>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You may bring swimwear and towel for pool, sauna, and jacuzzi use. However, we provide clean towels, bathrobe, and slippers for all your needs. You may bring your personal care products if you wish.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-results" id="noResults">
+                <p id="noResultsText">🔍 Aramanıza uygun sual tapılmadı.</p>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <h2>Bizimlə Əlaqə / Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>WhatsApp</h3>
+                    <p><a href="https://wa.me/994512063737">+994 51 206 37 37</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Rezervasiya / Reservation</h3>
+                    <p><a href="tel:+994125654846">+994 12 565 48 46</a></p>
+                    <p><a href="mailto:spareservation@fairmont.com">spareservation@fairmont.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Ünvan / Address</h3>
+                    <p>Fairmont Baku, Flame Towers<br>1 Mehdi Huseyn St., Baku</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'az';
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const searchInputAz = document.querySelector('.search-input-az');
+        const searchInputEn = document.querySelector('.search-input-en');
+        const noResults = document.getElementById('noResults');
+        const noResultsText = document.getElementById('noResultsText');
+
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentLang = btn.dataset.lang;
+                
+                langButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                document.querySelectorAll('.lang-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                if (currentLang === 'az') {
+                    document.getElementById('faqListAz').classList.add('active');
+                    searchInputAz.style.display = 'block';
+                    searchInputEn.style.display = 'none';
+                    searchInputAz.value = '';
+                    noResultsText.textContent = '🔍 Aramanıza uygun sual tapılmadı.';
+                } else {
+                    document.getElementById('faqListEn').classList.add('active');
+                    searchInputAz.style.display = 'none';
+                    searchInputEn.style.display = 'block';
+                    searchInputEn.value = '';
+                    noResultsText.textContent = '🔍 No questions found matching your search.';
+                }
+                
+                noResults.style.display = 'none';
+                
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.remove('active');
+                });
+            });
+        });
+
+        function setupFAQItems(containerSelector) {
+            const container = document.querySelector(containerSelector);
+            const faqItems = container.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+                    
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        setupFAQItems('#faqListAz');
+        setupFAQItems('#faqListEn');
+
+        function setupSearch(inputElement, containerSelector) {
+            inputElement.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                const container = document.querySelector(containerSelector);
+                const faqItems = container.querySelectorAll('.faq-item');
+                let hasResults = false;
+
+                faqItems.forEach(item => {
+                    const question = item.querySelector('h3').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('active');
+                    }
+                });
+
+                if (!hasResults && searchTerm !== '') {
+                    noResults.style.display = 'block';
+                    container.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    container.style.display = 'block';
+                }
+            });
+        }
+
+        setupSearch(searchInputAz, '#faqListAz');
+        setupSearch(searchInputEn, '#faqListEn');
+    </script>
+</body>
+</html>
